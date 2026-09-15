@@ -1,5 +1,7 @@
 use osmpbf::{Element, ElementReader};
 
+use crate::OsmElementType::Way;
+
 #[derive(Debug)]
 enum TransitFeature {
     Rail,
@@ -44,6 +46,32 @@ fn parse_feature(key: &str, value: &str) -> Option<TransitFeature> {
         _ => None,
     }
 }
+
+fn parse_element(element: Element<'_>) -> Option<TransitEntity> {
+    match element {
+        Element::Node(node) => parse_node(node),
+        Element::DenseNode(node) => parse_dense_node(node),
+        Element::Way(way) => parse_way(way),
+        Element::Relation(relation) => parse_relation(relation),
+    }
+}
+
+fn parse_node(node: osmpbf::Node<'_>) -> Option<TransitEntity> {
+    todo!()
+}
+
+fn parse_dense_node(node: osmpbf::DenseNode<'_>) -> Option<TransitEntity> {
+    todo!()
+}
+
+fn parse_way(way: osmpbf::Way<'_>) -> Option<TransitEntity> {
+    todo!()
+}
+
+fn parse_relation(relation: osmpbf::Relation<'_>) -> Option<TransitEntity> {
+    todo!()
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let reader = ElementReader::from_path(
         "/Users/neel.sawant/Desktop/projects/geocompiler/NewYork.osm.pbf",
